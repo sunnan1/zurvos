@@ -17,15 +17,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/workout-buddy-list', 'ApiController@getWorkoutDetails');
 
 Route::group(['namespace'=>'apicontrollers'],function(){
-Route::post('admin-login','AdminController@adminlogin');
+
+
+    Route::post('admin-login','AdminController@adminlogin');
 
     // Admin Login controller (SIGN IN)
     Route::post('/login','UsersController@login');
 
   	// Send verification code
-    Route::post('send-code','UsersController@sendcode'); 
+    Route::post('send-code','UsersController@sendcode');
 
     // Confirm Verification Code
     Route::post('confirm','UsersController@confirm');
@@ -35,7 +38,7 @@ Route::post('admin-login','AdminController@adminlogin');
 
     Route::get('lib/{id}','LibraryController@single')->name('libsingle');
     Route::get('view-video/{id}','LibraryController@addview');
-    
+
     Route::get('like-video/{id}','LibraryController@likevideo');
     //get lib
 
@@ -48,10 +51,10 @@ Route::post('admin-login','AdminController@adminlogin');
     Route::get('my-workout/{id}','WorkoutController@show');
     //workout Detail
     Route::get('workout-detail/{id}','WorkoutController@detail');
-    
+
     //workout Detail
     Route::get('all-workout-detail','WorkoutController@alldetail');
-    // Reset Password 
+    // Reset Password
     Route::post('reset-password','UsersController@updatepassword');
     //addd buddy wrkout
     Route::post('add-buddy-workout','BuddyWorkoutController@store');
@@ -59,29 +62,29 @@ Route::post('admin-login','AdminController@adminlogin');
     //show Workout Buddy
 
     Route::get('my-buddy-workout/{id}','BuddyWorkoutController@mybuddy');
-    
+
     Route::get('all-buddy-invite/{id}','BuddyWorkoutController@allbuddy');
-    
+
     Route::get('accept-workout-buddy/{id}','BuddyWorkoutController@accept')->name('accept-buddy-workout');
-    
+
     Route::get('reject-workout-buddy/{id}','BuddyWorkoutController@reject')->name('reject-buddy-workout');
-    
+
     //create workout list
     Route::post('create-workout-list','WorkoutController@createlist');
     //add video to workoutlist
     Route::post('add-video-workout-list','WorkoutController@addvideo');
-    // Add Gym 
+    // Add Gym
     Route::post('add-gym','GymsController@addgym');
 
     Route::post('gym-login','GymsController@login');
 
-    // Recents Gym 
+    // Recents Gym
     Route::get('recents-gym','GymsController@recent');
 
-    // Recents Gym 
+    // Recents Gym
     Route::get('approve-gym/{id}','GymsController@approve');
 
-    // Delete Recent Gym 
+    // Delete Recent Gym
     Route::get('delete-gym/{id}','GymsController@delete');
 
     // See all Gyms
@@ -90,8 +93,8 @@ Route::post('admin-login','AdminController@adminlogin');
     // Gym Detail
     Route::get('gym-detail/{id}','GymsController@show');
 
-    // New Gyms 
-    Route::get('new-gyms','GymsController@newgyms'); 
+    // New Gyms
+    Route::get('new-gyms','GymsController@newgyms');
 
     //find gym
 
@@ -103,31 +106,31 @@ Route::post('admin-login','AdminController@adminlogin');
 
     Route::get('all-gyms/{number}','GymsController@gympaginate');
 
-    // Existing Gyms 
-    Route::get('existing-gyms','GymsController@existinggyms'); 
+    // Existing Gyms
+    Route::get('existing-gyms','GymsController@existinggyms');
 
     // User Registeration
-    Route::post('user-register','CustomersController@register'); 
+    Route::post('user-register','CustomersController@register');
 
     // User Login
-    Route::post('user-login','CustomersController@userlogin'); 
+    Route::post('user-login','CustomersController@userlogin');
 
     // Send verification code
-    Route::post('sendcode','CustomersController@sendcode'); 
+    Route::post('sendcode','CustomersController@sendcode');
 
     // Confirm Verification Code
     Route::post('confirm-code','CustomersController@confirm');
 
-    // Reset Password 
+    // Reset Password
     Route::post('update-password','CustomersController@updatepassword');
 
-    // Create Posts 
+    // Create Posts
     Route::post('new-post','PostsController@posts');
     Route::get('post/{id}','PostsController@Singlepost')->name('postsin');
-    // Get Posts 
+    // Get Posts
     Route::get('all-posts','PostsController@postsdata');
 
-    // Like Dislike 
+    // Like Dislike
     Route::post('actions','ActionController@action');
 
     // Comment system
@@ -169,7 +172,7 @@ Route::get('change-user-notification/{id}','UserNotificationController@changeuse
     // All users list
     Route::get('users-list','CustomersController@manageusers');
     Route::get('gym-stat','CustomersController@gymstat');
-    
+
     Route::post('gym-stat','CustomersController@gymstato');
     // Delete a user
     Route::get('delete-user/{id}','CustomersController@deleteUser');
@@ -201,7 +204,7 @@ Route::get('change-user-notification/{id}','UserNotificationController@changeuse
 
     Route::post('un-follow','FollowController@unfollow');
 
-    //Add Payment 
+    //Add Payment
 
     Route::post('payment','PaymentController@payment');
 
@@ -295,11 +298,11 @@ Route::get('change-user-notification/{id}','UserNotificationController@changeuse
     Route::get('all-employee','EmployeeController@show');
 
     Route::post('product-order','ProductOrderController@store');
-    
+
     Route::get('all-product-order','ProductOrderController@allorder');
     Route::get('change-product-order/{id}','ProductOrderController@changeorder');
     Route::get('pending-product-order','ProductOrderController@pendingorder');
-    
+
     Route::post('video-order','VideoOrderController@store');
     Route::get('all-video-order','VideoOrderController@allorder');
     Route::get('pending-video-order','VideoOrderController@pendingorder');
@@ -309,7 +312,7 @@ Route::get('change-user-notification/{id}','UserNotificationController@changeuse
     Route::post('stripe-product-order','StripePaymentController@stripePostProduct');
 
     Route::post('stripe-video-order','StripePaymentController@stripePostvideo');
-    
+
     Route::post('stripe-deposit-amount','StripePaymentController@stripedeposit');
 
     Route::get('all-transaction','ProductOrderController@alltransaction');

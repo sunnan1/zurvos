@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,26 +20,20 @@ Route::group(['prefix' => 'admin'], function () {
   Route::post('/login', 'AdminAuth\LoginController@login');
   Route::get('/logout', 'AdminAuth\LoginController@logout');
 
-
-
   Route::post('/password/email', 'AdminAuth\ForgotPasswordController@sendResetLinkEmail');
   Route::post('/password/reset', 'AdminAuth\ResetPasswordController@reset');
   Route::get('/password/reset', 'AdminAuth\ForgotPasswordController@showLinkRequestForm');
   Route::get('/password/reset/{token}', 'AdminAuth\ResetPasswordController@showResetForm');
   Route::get('/home','Admin\HomeController@home');
+
   Route::group(['namespace'=>'Admin'],function(){
-
-                          // Gym routes
-
-    // View Gyms
+                          // Gym routes// View Gyms
     Route::get('gyms-all','GymsController@allGym')->name('gyms.index');
  // edit Gym
     Route::get('edit-gyms/{id}','GymsController@editGym')->name('gyms.edit');
     Route::put('edit-gyms/{id}','GymsController@update')->name('gyms.update');
-
  // delete Gym
     Route::delete('delete-gym/{id}','GymsController@destroy')->name('gyms.destroy');
-
     // Add Gym
     Route::get('add-gym','GymsController@addGym')->name('add-gym');
     Route::post('add-gym','GymsController@storeGym')->name('add-gym');
@@ -57,7 +50,6 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('transactions','TransactionController@index')->name('transactions.index');
     Route::delete('transactions/{id}','TransactionController@destroy')->name('transactions.destroy');
-
 
     Route::get('affiliate-partners','AffiliatePartnerController@viewAllOrders')
     ->name('affiliate-partners');
