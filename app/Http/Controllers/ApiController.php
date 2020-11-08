@@ -13,7 +13,7 @@ class ApiController extends Controller
         {
             $workout = workout::whereId($request->get('workout_id'))->get();
             if(count($workout) > 0){
-                $workout = ($workout->first())->with("customer" , "buddyworkout.customer")->get();
+                $workout = ($workout->first())->with("customer" , "videos.libs","buddyworkout.customer")->get();
                 return response(["status" => 'Success' , 'message' => '' , 'data' => $workout] , 200);
             }
             else{

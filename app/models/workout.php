@@ -17,4 +17,9 @@ class workout extends Model
     {
         return $this->hasMany(BuddyWorkout::class , 'workout_id' , 'id');
     }
+
+    public function videos()
+    {
+        return $this->hasMany(WorkoutVideos::class , 'workout_id' , 'id');
+    }
 }
