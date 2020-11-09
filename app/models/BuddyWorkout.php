@@ -14,4 +14,9 @@ class BuddyWorkout extends Model
     {
         return $this->belongsTo(workout::class , 'workout_id' , 'id');
     }
+
+    public function buddy()
+    {
+        return $this->belongsTo(Customer::class , 'buddy_id' , 'id');
+    }
 }

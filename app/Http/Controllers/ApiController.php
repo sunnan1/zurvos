@@ -98,7 +98,7 @@ class ApiController extends Controller
         {
                 $customer = BuddyWorkout::whereHas("workouts" , function($q) {
                    $q->where("customer_id" , request()->get('user_id'));
-                })->with("customer")->get();
+                })->with("buddy")->get();
 
             return response(['status' => 'Success' , 'message' => '' , 'data' => $customer] , 200);
         }
