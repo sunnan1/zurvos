@@ -39,4 +39,24 @@ class ApiController extends Controller
         }
     }
 
+    public function removeUserBuddies()
+    {
+        if(request()->has('user_id') && request()->has('buddy_id'))
+        {
+            $buddy = BuddyWorkout::where("id" , request()->get('buddy_id'))->where('customer_id' , request()->get('user_id'))->get();
+            if(count($buddy) > 0)
+            {
+                ($buddy->first())->delete();
+                return response(['status' => 'Success' , 'message' => 'Buddy deleted successfully'] , 200);
+            }
+            else{
+                return response(['status' => 'Error' , 'message' => 'Workout buddy not found'] , 404);
+            }
+        }
+        else
+        {
+            return response(['status' => 'Error' , 'message' => 'Buddy id or user id not is invalid'] , 401);
+        }
+    }
+
 }

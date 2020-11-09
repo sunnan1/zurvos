@@ -19,6 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/workout-buddy-list', 'ApiController@getWorkoutDetails');
 Route::post('/get-user-buddies' , 'ApiController@getBuddies');
+Route::post('/remove-user-buddies' , 'ApiController@removeUserBuddies');
+
+
 Route::group(['namespace'=>'apicontrollers'],function(){
 
 
