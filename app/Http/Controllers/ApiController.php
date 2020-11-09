@@ -59,4 +59,53 @@ class ApiController extends Controller
         }
     }
 
+    public function createWorkout()
+    {
+        if(request()->has('user_id'))
+        {
+            $workout = new workout();
+            $workout->workout_title = request()->get('title');
+            $workout->type = request()->get('type');
+            $workout->workout_level = request()->get('level');
+            $workout->goal = request()->get('goal');
+            $workout->customer_id = request()->get('user_id');
+            $workout->description = request()->get('description');
+            $workout->save();
+            return response(['status' => 'Success' , 'message' => 'Workout saved successfully' , 'data' => $workout] , 200);
+        }
+        else
+        {
+            return response(['status' => 'Error' , 'message' => 'User ID is missing'] , 401);
+        }
+    }
+
+    public function getUserWorkoutList()
+    {
+        if(request()->has('user_id'))
+        {
+            $workouts = workout::where("customer_id" , request()->get('user_id'));
+            $workouts = $workouts->with("videos.libs");
+            return response(['status' => 'Success' , 'message' => '' , 'data' => $workouts->get() ] , 200) ;
+        }
+        else
+        {
+            return response(['status' => 'Error' , 'message' => 'User ID is missing'] , 401);
+        }
+    }
+
+    public function getUserBuddyList(){
+        if(request()->has('user_id'))
+        {
+                $customer = BuddyWorkout::whereHas("workouts" , function($q) {
+                   $q->where("customer_id" , request()->get('user_id'));
+                })->with("customer")->get();
+
+            return response(['status' => 'Success' , 'message' => '' , 'data' => $customer] , 200);
+        }
+        else
+        {
+            return response(['status' => 'Error' , 'message' => 'User ID is missing'] , 401);
+        }
+    }
+
 }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class workout extends Model
 {
+    protected $guarded = [];
     protected $table = 'workouts';
     protected $primaryKey = 'id';
 

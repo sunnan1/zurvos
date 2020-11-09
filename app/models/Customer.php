@@ -20,4 +20,13 @@ class Customer extends Model
         'password', 'remember_token',
     ];
 
+
+    public function getUserImageAttribute($value)
+    {
+        if($value != null)
+        {
+            return url('/public/userimage/'.$value);
+        }
+    }
+
 }
