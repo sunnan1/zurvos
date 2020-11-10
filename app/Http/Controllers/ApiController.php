@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\models\BuddyWorkout;
 use App\models\Customer;
+use App\models\Influence;
 use App\models\workout;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,7 @@ class ApiController extends Controller
     {
         if(request()->has('user_id'))
         {
-            $buddyWorkouts = BuddyWorkout::with("customer")->where("customer_id" , request()->get('user_id'))->get();
+            $buddyWorkouts = BuddyWorkout::with("buddy")->where("customer_id" , request()->get('user_id'))->get();
             return response(['status' => 'Success' , 'message' => '', 'data' => $buddyWorkouts] , 200);
         }
         else{
@@ -43,7 +44,7 @@ class ApiController extends Controller
     {
         if(request()->has('user_id') && request()->has('buddy_id'))
         {
-            $buddy = BuddyWorkout::where("id" , request()->get('buddy_id'))->where('customer_id' , request()->get('user_id'))->get();
+            $buddy = BuddyWorkout::where("id" , request()->get('buddy_id'))->where('buddy_id' , request()->get('user_id'))->get();
             if(count($buddy) > 0)
             {
                 ($buddy->first())->delete();
@@ -105,6 +106,19 @@ class ApiController extends Controller
         else
         {
             return response(['status' => 'Error' , 'message' => 'User ID is missing'] , 401);
+        }
+    }
+
+    public function getInfluenceUsers()
+    {
+        if(request()->has('start_date') && request()->has('end_date'))
+        {
+            $influence = Influence::whereDate('created_at' , '>=' , request()->get('start_date'))->whereDate('created_at' , '<=' , request('end_date'))->get();
+            return response(['status' => 'Success' , 'message' => '' , 'data' => $influence] , 200);
+        }
+        else
+        {
+            return response(['status' => 'Error' , 'message' => 'Start date or End date is missing'] , 401);
         }
     }
 }

@@ -23,7 +23,7 @@ Route::post('/remove-user-buddies' , 'ApiController@removeUserBuddies');
 Route::post('/create-user-workout' , 'ApiController@createWorkout');
 Route::post('/user-workout-list' , 'ApiController@getUserWorkoutList');
 Route::post('/user-buddies-list' , 'ApiController@getUserBuddyList');
-
+Route::post('/influence-user-statistics' , 'ApiController@getInfluenceUsers');
 
 Route::group(['namespace'=>'apicontrollers'],function(){
 
