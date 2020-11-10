@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\models\BuddyWorkout;
 use App\models\Customer;
+use App\models\ExerciseLib;
 use App\models\Influence;
 use App\models\workout;
 use Illuminate\Http\Request;
@@ -115,6 +116,19 @@ class ApiController extends Controller
         {
             $influence = Influence::whereDate('created_at' , '>=' , request()->get('start_date'))->whereDate('created_at' , '<=' , request('end_date'))->get();
             return response(['status' => 'Success' , 'message' => '' , 'data' => $influence] , 200);
+        }
+        else
+        {
+            return response(['status' => 'Error' , 'message' => 'Start date or End date is missing'] , 401);
+        }
+    }
+
+    public function getExerciseLibrary()
+    {
+        if(request()->has('user_id'))
+        {
+            $exerciseLib = ExerciseLib::where('customer_id' , request()->get('user_id'))->get();
+            return response(['status' => 'Success' , 'message' => '' , 'data' => $exerciseLib] , 200);
         }
         else
         {
